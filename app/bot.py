@@ -40,3 +40,4 @@ dp.include_router(
 dp.include_router(
     profile.router
 )
+dp.include_router(design_flow.router)
