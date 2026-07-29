@@ -4,17 +4,12 @@ from aiogram.enums import ParseMode
 
 from app.config import BOT_TOKEN
 
-from app.handlers import (
-    start,
-    menu,
-    profile,
-    earnings,
-    earnings_category,
-    academy,
-    academy_lessons,
-    premium,
-    payment,
-)
+from app.handlers import start
+from app.handlers import menu
+from app.handlers import profile
+from app.handlers import academy
+from app.handlers import earnings
+from app.handlers import premium
 
 
 bot = Bot(
@@ -28,13 +23,10 @@ bot = Bot(
 dp = Dispatcher()
 
 
-# Подключаем обработчики
+# Подключаем handlers
 dp.include_router(start.router)
 dp.include_router(menu.router)
 dp.include_router(profile.router)
-dp.include_router(earnings.router)
-dp.include_router(earnings_category.router)
 dp.include_router(academy.router)
-dp.include_router(academy_lessons.router)
+dp.include_router(earnings.router)
 dp.include_router(premium.router)
-dp.include_router(payment.router)

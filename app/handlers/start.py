@@ -2,50 +2,31 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
 
-from app.database.engine import async_session
-from app.database.repository import get_or_create_user
-from app.keyboards.main import main_menu
-
 
 router = Router()
 
 
 @router.message(Command("start"))
-async def start_handler(message: Message):
-    """
-    Регистрация пользователя и приветствие
-    """
-
-    telegram_user = message.from_user
-
-    async with async_session() as session:
-
-        user = await get_or_create_user(
-            session=session,
-            telegram_id=telegram_user.id,
-            username=telegram_user.username,
-            first_name=telegram_user.first_name
-        )
-
+async def start_command(
+    message: Message
+):
 
     await message.answer(
-        f"""
-🚀 <b>Добро пожаловать в ProfitOS</b>
+        """
+🚀 <b>Добро пожаловать в ProfitOS!</b>
 
-Привет, {user.first_name}! 👋
+Твой личный помощник по заработку.
 
-Ты зарегистрирован в системе.
+Выбирай направление и начинай обучение 👇
+        """
+    )
 
-Твой профиль:
 
-🆔 ID: <code>{user.telegram_id}</code>
-⭐ Статус: {"Premium" if user.is_premium else "Free"}
-🎯 Уровень: {user.level}
-📈 Прогресс: {user.progress}%
+@router.message(Command("help"))
+async def help_command(
+    message: Message
+):
 
-ProfitOS поможет тебе построить путь к доходу.
-
-Выбери раздел 👇
-        """,
-        reply_markup=main_menu()
+    await message.answer(
+        "ℹ️ Используй /start чтобы открыть меню"
     )
