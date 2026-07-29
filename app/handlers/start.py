@@ -2,31 +2,26 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
 
-
 router = Router()
 
 
 @router.message(Command("start"))
-async def start_command(
-    message: Message
-):
+async def cmd_start(message: Message):
+
+    print("🔥 START RECEIVED")
 
     await message.answer(
-        """
-🚀 <b>Добро пожаловать в ProfitOS!</b>
-
-Твой личный помощник по заработку.
-
-Выбирай направление и начинай обучение 👇
-        """
+        "🚀 ProfitOS работает!"
     )
 
 
-@router.message(Command("help"))
-async def help_command(
-    message: Message
-):
+@router.message()
+async def all_messages(message: Message):
+
+    print(
+        f"📩 MESSAGE: {message.text}"
+    )
 
     await message.answer(
-        "ℹ️ Используй /start чтобы открыть меню"
+        f"Получил: {message.text}"
     )

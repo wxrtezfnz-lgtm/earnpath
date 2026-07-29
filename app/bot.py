@@ -4,12 +4,7 @@ from aiogram.enums import ParseMode
 
 from app.config import BOT_TOKEN
 
-from app.handlers import start
-from app.handlers import menu
-from app.handlers import profile
-from app.handlers import academy
-from app.handlers import earnings
-from app.handlers import premium
+from app.handlers.start import router as start_router
 
 
 bot = Bot(
@@ -23,10 +18,5 @@ bot = Bot(
 dp = Dispatcher()
 
 
-# Подключаем handlers
-dp.include_router(start.router)
-dp.include_router(menu.router)
-dp.include_router(profile.router)
-dp.include_router(academy.router)
-dp.include_router(earnings.router)
-dp.include_router(premium.router)
+# подключаем стартовый обработчик
+dp.include_router(start_router)

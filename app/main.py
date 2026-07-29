@@ -1,7 +1,6 @@
 import asyncio
 
 from loguru import logger
-from aiogram import F
 
 from app.bot import bot, dp
 from app.config import settings
@@ -13,7 +12,7 @@ async def main():
     logger.info(f"Environment: {settings.ENVIRONMENT}")
 
     try:
-
+        # Проверка Telegram соединения
         me = await bot.get_me()
 
         logger.info(
@@ -22,12 +21,16 @@ async def main():
         )
 
 
-        # DEBUG входящих сообщений
+        # DEBUG всех входящих сообщений
         @dp.message()
-        async def debug_message(message):
+        async def debug_all_messages(message):
 
             logger.info(
-                f"📩 Получено: {message.text}"
+                f"📩 Получено сообщение: {message.text}"
+            )
+
+            await message.answer(
+                f"✅ Получил: {message.text}"
             )
 
 
