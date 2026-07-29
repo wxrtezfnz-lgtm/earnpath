@@ -1,34 +1,24 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
-def earnings_menu() -> InlineKeyboardMarkup:
-    """
-    Меню направлений заработка
-    """
-
-    keyboard = InlineKeyboardMarkup(
+def earnings_keyboard():
+    return InlineKeyboardMarkup(
         inline_keyboard=[
             [
                 InlineKeyboardButton(
-                    text="🤖 AI и автоматизация",
-                    callback_data="earn_ai"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    text="💻 Фриланс",
+                    text="🔥 Фриланс",
                     callback_data="earn_freelance"
                 )
             ],
             [
                 InlineKeyboardButton(
-                    text="📱 Создание контента",
-                    callback_data="earn_content"
+                    text="📱 Онлайн-проекты",
+                    callback_data="earn_online"
                 )
             ],
             [
                 InlineKeyboardButton(
-                    text="🏪 Онлайн-бизнес",
+                    text="🛒 Бизнес",
                     callback_data="earn_business"
                 )
             ],
@@ -38,13 +28,42 @@ def earnings_menu() -> InlineKeyboardMarkup:
                     callback_data="earn_invest"
                 )
             ],
-            [
-                InlineKeyboardButton(
-                    text="⬅ Назад",
-                    callback_data="back_main"
-                )
-            ]
         ]
     )
 
-    return keyboard
+
+def freelance_keyboard():
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(
+                    text="✍️ Копирайтинг",
+                    callback_data="skill_copywriting"
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    text="🎨 Дизайн",
+                    callback_data="skill_design"
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    text="💻 Разработка",
+                    callback_data="skill_dev"
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    text="🤖 AI-инструменты",
+                    callback_data="skill_ai"
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    text="⬅️ Назад",
+                    callback_data="back_earn"
+                )
+            ],
+        ]
+    )
