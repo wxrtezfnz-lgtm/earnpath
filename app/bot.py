@@ -6,9 +6,9 @@ from app.handlers import (
     start,
     earnings,
     profile,
-    design_flow
+    design_flow,
+    design_progress
 )
-
 
 bot = Bot(
     token=BOT_TOKEN
@@ -28,10 +28,5 @@ dp.include_router(
     earnings.router
 )
 
-dp.include_router(
-    design_flow.router
-)
-
-dp.include_router(
-    profile.router
-)
+dp.include_router(design_flow.router)
+dp.include_router(design_progress.router)
