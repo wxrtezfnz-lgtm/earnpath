@@ -3,6 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.database.repository import get_or_create_user
 
 
+
 async def complete_lesson_progress(
     session: AsyncSession,
     telegram_id: int,
@@ -28,12 +29,10 @@ async def complete_lesson_progress(
     await session.commit()
     await session.refresh(user)
 
-
     return user
 
 
 
-# совместимость со старыми handlers
 async def complete_lesson(
     session: AsyncSession,
     telegram_id: int,
@@ -47,3 +46,19 @@ async def complete_lesson(
         username=username,
         first_name=first_name
     )
+
+
+
+async def get_profile(
+    session: AsyncSession,
+    telegram_id: int
+):
+
+    user = await get_or_create_user(
+        session=session,
+        telegram_id=telegram_id,
+        username=None,
+        first_name=None
+    )
+
+    return user
