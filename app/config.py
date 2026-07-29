@@ -1,99 +1,88 @@
-from functools import lru_cache
-
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from functools import lru_cache
 
 
 class Settings(BaseSettings):
-    """
-    Основные настройки ProfitOS
-    """
-
     # Telegram
     BOT_TOKEN: str
 
     # Admin
-    ADMIN_IDS: str
-
-    # Database
-    DB_HOST: str
-    DB_PORT: int
-    DB_NAME: str
-    DB_USER: str
-    DB_PASSWORD: str
-
-    # Redis
-    REDIS_HOST: str
-    REDIS_PORT: int
-    REDIS_PASSWORD: str | None = None
-
-    # Security
-    SECRET_KEY: str
+    ADMIN_IDS: str = ""
 
     # Environment
     DEBUG: bool = False
-    LOG_LEVEL: str = "INFO"
+    ENVIRONMENT: str = "PRODUCTION"
 
+
+    # PostgreSQL
+    DB_HOST: str = "localhost"
+    DB_PORT: int = 5432
+    DB_NAME: str = "profitos"
+    DB_USER: str = "postgres"
+    DB_PASSWORD: str = ""
+
+
+    # Redis
+    REDIS_HOST: str = "localhost"
+    REDIS_PORT: int = 6379
+
+
+    # Security
+    SECRET_KEY: str = "change_me"
+
+
+    # Payments (если используешь)
+    PAYMENT_PROVIDER_TOKEN: str = ""
+
+
+    # Railway автоматически подхватывает Variables
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
-        case_sensitive=True
+        case_sensitive=False,
+        extra="ignore"
     )
 
-    @property
-    def database_url(self) -> str:
-        """
-        URL подключения PostgreSQL
-        """
-        return (
-            f"postgresql+asyncpg://"
-            f"{self.DB_USER}:"
-            f"{self.DB_PASSWORD}@"
-            f"{self.DB_HOST}:"
-            f"{self.DB_PORT}/"
-            f"{self.DB_NAME}"
-        )
 
     @property
-    def redis_url(self) -> str:
-        """
-        URL подключения Redis
-        """
-
-        if self.REDIS_PASSWORD:
-            return (
-                f"redis://:"
-                f"{self.REDIS_PASSWORD}@"
-                f"{self.REDIS_HOST}:"
-                f"{self.REDIS_PORT}"
-            )
-
-        return (
-            f"redis://"
-            f"{self.REDIS_HOST}:"
-            f"{self.REDIS_PORT}"
-        )
-
-    @property
-    def admin_list(self) -> list[int]:
-        """
-        Преобразование ADMIN_IDS:
-        123,456,789 -> [123,456,789]
-        """
+    def admin_list(self):
+        if not self.ADMIN_IDS:
+            return []
 
         return [
-            int(admin_id.strip())
-            for admin_id in self.ADMIN_IDS.split(",")
-            if admin_id.strip()
+            int(x.strip())
+            for x in self.ADMIN_IDS.split(",")
+            if x.strip().isdigit()
         ]
 
 
-@lru_cache
-def get_settings() -> Settings:
-    """
-    Кэшируем настройки,
-    чтобы не создавать объект постоянно
-    """
+@lru_cache()
+def get_settings():
     return Settings()
 
 
 settings = get_settings()
+
+
+# Для старого кода
+BOT_TOKEN = settings.BOT_TOKEN
+
+ADMIN_IDS = settings.admin_list
+
+DEBUG = settings.DEBUG
+
+DATABASE_URL = (
+    f"postgresql+asyncpg://"
+    f"{settings.DB_USER}:"
+    f"{settings.DB_PASSWORD}@"
+    f"{settings.DB_HOST}:"
+    f"{settings.DB_PORT}/"
+    f"{settings.DB_NAME}"
+)
+
+
+REDIS_URL = (
+    f"redis://"
+    f"{settings.REDIS_HOST}:"
+    f"{settings.REDIS_PORT}"
+)
