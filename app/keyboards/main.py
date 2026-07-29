@@ -1,41 +1,19 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
-def main_menu() -> InlineKeyboardMarkup:
-    """
-    Главное меню ProfitOS
-    """
-
-    keyboard = InlineKeyboardMarkup(
+def main_menu_keyboard():
+    return InlineKeyboardMarkup(
         inline_keyboard=[
             [
                 InlineKeyboardButton(
-                    text="💰 Способы заработка",
-                    callback_data="earnings"
+                    text="💰 Заработок",
+                    callback_data="earn"
                 )
             ],
             [
                 InlineKeyboardButton(
-                    text="🧠 AI Наставник",
-                    callback_data="ai_coach"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    text="📚 Академия",
+                    text="🎓 Академия",
                     callback_data="academy"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    text="📈 Инструменты",
-                    callback_data="tools"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    text="🎯 План развития",
-                    callback_data="roadmap"
                 )
             ],
             [
@@ -49,8 +27,6 @@ def main_menu() -> InlineKeyboardMarkup:
                     text="⭐ Premium",
                     callback_data="premium"
                 )
-            ]
+            ],
         ]
     )
-
-    return keyboard
