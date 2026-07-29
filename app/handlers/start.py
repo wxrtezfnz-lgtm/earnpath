@@ -1,27 +1,53 @@
 from aiogram import Router
-from aiogram.filters import Command
 from aiogram.types import Message
+from aiogram.filters import Command
+
 
 router = Router()
 
 
 @router.message(Command("start"))
-async def cmd_start(message: Message):
+async def start_handler(
+    message: Message
+):
 
-    print("🔥 START RECEIVED")
+    print(
+        f"START FROM {message.from_user.id}"
+    )
 
     await message.answer(
-        "🚀 ProfitOS работает!"
+        """
+🚀 <b>Добро пожаловать в EarnPath!</b>
+
+Твой путь к заработку начинается здесь.
+
+Доступные команды:
+
+/start — запуск
+/help — помощь
+        """
+    )
+
+
+@router.message(Command("help"))
+async def help_handler(
+    message: Message
+):
+
+    await message.answer(
+        "ℹ️ Помощь EarnPath"
     )
 
 
 @router.message()
-async def all_messages(message: Message):
+async def echo_handler(
+    message: Message
+):
 
     print(
-        f"📩 MESSAGE: {message.text}"
+        f"MSG: {message.text}"
     )
 
     await message.answer(
-        f"Получил: {message.text}"
+        f"✅ Получил: {message.text}"
     )

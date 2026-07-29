@@ -12,7 +12,6 @@ async def main():
     logger.info(f"Environment: {settings.ENVIRONMENT}")
 
     try:
-        # Проверка Telegram соединения
         me = await bot.get_me()
 
         logger.info(
@@ -20,24 +19,7 @@ async def main():
             f"(ID: {me.id})"
         )
 
-
-        # DEBUG всех входящих сообщений
-        @dp.message()
-        async def debug_all_messages(message):
-
-            logger.info(
-                f"📩 Получено сообщение: {message.text}"
-            )
-
-            await message.answer(
-                f"✅ Получил: {message.text}"
-            )
-
-
-        logger.info(
-            "🤖 Бот начинает polling..."
-        )
-
+        logger.info("🤖 Бот начинает polling...")
 
         await dp.start_polling(
             bot,
@@ -47,22 +29,14 @@ async def main():
             ]
         )
 
-
     except Exception as e:
-
         logger.exception(
-            f"❌ Ошибка запуска бота: {e}"
+            f"❌ Ошибка запуска: {e}"
         )
-
 
     finally:
-
-        logger.info(
-            "🛑 ProfitOS остановлен"
-        )
-
+        logger.info("🛑 ProfitOS остановлен")
         await bot.session.close()
-
 
 
 if __name__ == "__main__":

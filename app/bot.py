@@ -4,8 +4,6 @@ from aiogram.enums import ParseMode
 
 from app.config import BOT_TOKEN
 
-from app.handlers.start import router as start_router
-
 
 bot = Bot(
     token=BOT_TOKEN,
@@ -18,5 +16,6 @@ bot = Bot(
 dp = Dispatcher()
 
 
-# подключаем стартовый обработчик
-dp.include_router(start_router)
+from app.handlers.start import router
+
+dp.include_router(router)
