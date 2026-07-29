@@ -30,6 +30,7 @@ async def design(message: Message):
     await message.answer(
         "🎨 Дизайн\n\n"
         "Выбери раздел:",
+        reply_markup=lessons_keyboard()
     )
 
 
