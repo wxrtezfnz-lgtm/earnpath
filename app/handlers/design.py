@@ -18,28 +18,10 @@ def lessons_keyboard():
                 KeyboardButton(text="🖼 Урок 3 — Портфолио")
             ],
             [
-                KeyboardButton(text="🎨 Дизайн")
+                KeyboardButton(text="💰 Заработок")
             ]
         ],
         resize_keyboard=True
-    )
-
-
-@router.message(F.text == "🎨 Дизайн")
-async def design(message: Message):
-    await message.answer(
-        "🎨 Дизайн\n\n"
-        "Выбери раздел:",
-        reply_markup=lessons_keyboard()
-    )
-
-
-@router.message(F.text == "📚 Уроки дизайна")
-async def lessons(message: Message):
-    await message.answer(
-        "📚 Уроки дизайна\n\n"
-        "Выбери урок:",
-        reply_markup=lessons_keyboard()
     )
 
 
@@ -75,4 +57,13 @@ async def lesson3(message: Message):
         "• Кейсы\n"
         "• Описание проектов\n"
         "• Поиск клиентов"
+    )
+
+
+@router.message(F.text == "🎨 Дизайн")
+async def design(message: Message):
+    await message.answer(
+        "🎨 Дизайн\n\n"
+        "Выбери урок:",
+        reply_markup=lessons_keyboard()
     )
