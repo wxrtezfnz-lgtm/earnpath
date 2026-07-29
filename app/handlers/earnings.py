@@ -14,7 +14,7 @@ router = Router()
 
 
 @router.callback_query(F.data == "earn")
-async def earnings_handler(callback: CallbackQuery):
+async def earn_handler(callback: CallbackQuery):
 
     await callback.message.edit_text(
         "💰 <b>Заработок EarnPath</b>\n\n"
@@ -30,12 +30,7 @@ async def freelance_handler(callback: CallbackQuery):
 
     await callback.message.edit_text(
         "🔥 <b>Фриланс</b>\n\n"
-        "Направления:\n\n"
-        "💻 Разработка\n"
-        "🎨 Дизайн\n"
-        "✍️ Копирайтинг\n"
-        "🤖 AI-услуги\n\n"
-        "Выбери действие 👇",
+        "Выбери раздел:",
         reply_markup=freelance_keyboard()
     )
 
@@ -47,10 +42,7 @@ async def online_handler(callback: CallbackQuery):
 
     await callback.message.edit_text(
         "📱 <b>Онлайн-проекты</b>\n\n"
-        "Идеи заработка:\n\n"
-        "🤖 AI проекты\n"
-        "📢 Telegram проекты\n"
-        "🌐 Интернет-сервисы",
+        "Раздел в разработке 🚧",
         reply_markup=online_keyboard()
     )
 
@@ -62,10 +54,7 @@ async def business_handler(callback: CallbackQuery):
 
     await callback.message.edit_text(
         "🛒 <b>Бизнес</b>\n\n"
-        "Идеи:\n\n"
-        "📦 Продажи\n"
-        "🏪 Мини-бизнес\n"
-        "🚀 Стартапы",
+        "Раздел в разработке 🚧",
         reply_markup=business_keyboard()
     )
 
@@ -77,10 +66,7 @@ async def invest_handler(callback: CallbackQuery):
 
     await callback.message.edit_text(
         "📈 <b>Инвестиции</b>\n\n"
-        "Раздел обучения:\n\n"
-        "📚 Основы\n"
-        "⚠️ Риски\n"
-        "💰 Стратегии",
+        "Раздел в разработке 🚧",
         reply_markup=invest_keyboard()
     )
 
