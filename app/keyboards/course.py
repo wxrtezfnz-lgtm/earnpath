@@ -1,45 +1,25 @@
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 
-def design_course_keyboard():
-    return InlineKeyboardMarkup(
-        inline_keyboard=[
+def design_lessons_keyboard():
+    buttons = []
+
+    for i in range(1, 11):
+        buttons.append(
             [
-                InlineKeyboardButton(
-                    text="🎨 Урок 1: Композиция",
-                    callback_data="lesson_composition"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    text="🌈 Урок 2: Цвет",
-                    callback_data="lesson_color"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    text="🖼 Урок 3: Портфолио",
-                    callback_data="lesson_portfolio"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    text="🔙 Назад",
-                    callback_data="design"
+                KeyboardButton(
+                    text=f"🎨 Урок {i}"
                 )
             ]
+        )
+
+    buttons.append(
+        [
+            KeyboardButton(text="💰 Заработок")
         ]
     )
 
-
-def complete_lesson_keyboard():
-    return InlineKeyboardMarkup(
-        inline_keyboard=[
-            [
-                InlineKeyboardButton(
-                    text="✅ Завершить урок",
-                    callback_data="complete_lesson"
-                )
-            ]
-        ]
+    return ReplyKeyboardMarkup(
+        keyboard=buttons,
+        resize_keyboard=True
     )

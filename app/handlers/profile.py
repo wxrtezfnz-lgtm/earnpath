@@ -1,77 +1,36 @@
-from aiogram import Router
-from aiogram.types import CallbackQuery
+from aiogram import Router, F
+from aiogram.types import Message
 
-from app.database.engine import async_session
-from app.services.user_service import get_user_profile
+from app.services.progress import (
+    get_profile,
+    create_user
+)
 
 
 router = Router()
 
 
-@router.callback_query(lambda callback: callback.data == "profile")
-async def profile_handler(
-    callback: CallbackQuery
-):
-    """
-    Профиль пользователя
-    """
+@router.message(F.text == "👤 Профиль")
+async def profile(message: Message):
 
-    telegram_id = callback.from_user.id
-
-
-    async with async_session() as session:
-
-        user = await get_user_profile(
-            session=session,
-            telegram_id=telegram_id
-        )
+    user = get_profile(
+        message.from_user.id
+    )
 
 
     if not user:
 
-        await callback.message.answer(
-            "❌ Профиль не найден. Нажми /start"
+        user = create_user(
+            message.from_user.id,
+            message.from_user.username or "user"
         )
 
-        await callback.answer()
 
-        return
-
-
-    status = (
-        "⭐ Premium"
-        if user.is_premium
-        else
-        "🆓 Free"
+    await message.answer(
+        "👤 Твой профиль\n\n"
+        f"Игрок: {user['username']}\n\n"
+        f"⭐ Уровень: {user['level']}\n"
+        f"⚡ XP: {user['xp']}\n\n"
+        f"🎨 Дизайн:\n"
+        f"{len(user['lessons'])}/10 уроков"
     )
-
-
-    await callback.message.edit_text(
-        f"""
-👤 <b>Твой профиль ProfitOS</b>
-
-Имя:
-{user.first_name}
-
-Username:
-@{user.username if user.username else "нет"}
-
-🆔 ID:
-<code>{user.telegram_id}</code>
-
-Статус:
-{status}
-
-🎯 Уровень:
-{user.level}
-
-📈 Прогресс:
-{user.progress}%
-
-📅 Регистрация:
-{user.created_at.strftime("%d.%m.%Y")}
-        """
-    )
-
-
-    await callback.answer()
