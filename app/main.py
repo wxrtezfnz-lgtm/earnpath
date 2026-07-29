@@ -7,27 +7,32 @@ from app.config import settings
 
 
 async def main():
-    """
-    Главный запуск ProfitOS
-    """
-
     logger.info("🚀 ProfitOS запускается...")
-
-    logger.info(
-        f"Environment: {'DEBUG' if settings.DEBUG else 'PRODUCTION'}"
-    )
+    logger.info(f"Environment: {settings.ENVIRONMENT}")
 
     try:
-        await dp.start_polling(bot)
+        # Проверяем подключение к Telegram
+        me = await bot.get_me()
+        logger.info(
+            f"✅ Telegram подключен: @{me.username} "
+            f"(ID: {me.id})"
+        )
 
-    except Exception as error:
+        logger.info("🤖 Бот начинает polling...")
+
+        await dp.start_polling(
+            bot,
+            allowed_updates=dp.resolve_used_update_types()
+        )
+
+    except Exception as e:
         logger.exception(
-            f"Ошибка запуска бота: {error}"
+            f"❌ Ошибка запуска бота: {e}"
         )
 
     finally:
-        await bot.session.close()
         logger.info("🛑 ProfitOS остановлен")
+        await bot.session.close()
 
 
 if __name__ == "__main__":
