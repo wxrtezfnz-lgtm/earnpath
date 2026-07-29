@@ -7,7 +7,8 @@ from app.handlers import (
     earnings,
     design,
     courses,
-    profile
+    profile,
+    design_flow
 )
 
 
