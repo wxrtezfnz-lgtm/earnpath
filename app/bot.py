@@ -5,8 +5,6 @@ from app.config import BOT_TOKEN
 from app.handlers import (
     start,
     earnings,
-    design,
-    courses,
     profile,
     design_flow
 )
@@ -20,7 +18,7 @@ bot = Bot(
 dp = Dispatcher()
 
 
-# Регистрация роутеров
+# Основные роутеры
 
 dp.include_router(
     start.router
@@ -31,14 +29,9 @@ dp.include_router(
 )
 
 dp.include_router(
-    design.router
-)
-
-dp.include_router(
-    courses.router
+    design_flow.router
 )
 
 dp.include_router(
     profile.router
 )
-dp.include_router(design_flow.router)
