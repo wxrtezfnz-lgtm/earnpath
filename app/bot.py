@@ -2,23 +2,21 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 
-from app.config import settings
+from app.config import BOT_TOKEN
 
 from app.handlers import (
     start,
+    help,
     menu,
-    profile,
     earnings,
-    earnings_category,
-    academy,
-    academy_lessons,
+    profile,
     premium,
-    payment,
+    academy,
 )
 
 
 bot = Bot(
-    token=settings.BOT_TOKEN,
+    token=BOT_TOKEN,
     default=DefaultBotProperties(
         parse_mode=ParseMode.HTML
     )
@@ -27,19 +25,10 @@ bot = Bot(
 dp = Dispatcher()
 
 
-# регистрация всех роутеров
 dp.include_router(start.router)
+dp.include_router(help.router)
 dp.include_router(menu.router)
-dp.include_router(profile.router)
 dp.include_router(earnings.router)
-dp.include_router(earnings_category.router)
-dp.include_router(academy.router)
-dp.include_router(academy_lessons.router)
+dp.include_router(profile.router)
 dp.include_router(premium.router)
-dp.include_router(payment.router)
-
-
-__all__ = [
-    "bot",
-    "dp"
-]
+dp.include_router(academy.router)
