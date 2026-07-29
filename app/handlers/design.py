@@ -11,10 +11,7 @@ router = Router()
 async def design_start(message: Message):
     await message.answer(
         "🎨 Дизайн\n\n"
-        "Выбери раздел:\n\n"
-        "📚 Уроки дизайна\n"
-        "💼 Поиск клиентов\n"
-        "🧰 Инструменты",
+        "Выбери раздел:",
         reply_markup=design_keyboard()
     )
 
@@ -23,35 +20,67 @@ async def design_start(message: Message):
 async def design_lessons(message: Message):
     await message.answer(
         "📚 Уроки дизайна\n\n"
-        "Урок 1:\n"
-        "🎨 Основы композиции\n\n"
-        "Урок 2:\n"
-        "🌈 Работа с цветом\n\n"
-        "Урок 3:\n"
-        "🖼 Создание портфолио\n\n"
-        "Скоро добавим полноценные материалы 🚀"
+        "Выбери урок:",
+        reply_markup=design_lessons_keyboard()
     )
 
 
-@router.message(F.text == "💼 Поиск клиентов")
-async def design_clients(message: Message):
+@router.message(F.text == "Урок 1 — Композиция")
+async def lesson_one(message: Message):
     await message.answer(
-        "💼 Поиск клиентов\n\n"
-        "Где искать заказы:\n\n"
-        "• Upwork\n"
-        "• Fiverr\n"
-        "• Telegram-чаты\n"
-        "• Социальные сети"
+        "🎨 Урок 1\n\n"
+        "Основы композиции:\n\n"
+        "• Баланс элементов\n"
+        "• Контраст\n"
+        "• Иерархия\n"
+        "• Сетка и выравнивание\n\n"
+        "Практика:\n"
+        "Создай простой баннер из 3 элементов."
     )
 
 
-@router.message(F.text == "🧰 Инструменты")
-async def design_tools(message: Message):
+@router.message(F.text == "Урок 2 — Цвет")
+async def lesson_two(message: Message):
     await message.answer(
-        "🧰 Инструменты дизайнера:\n\n"
-        "• Figma\n"
-        "• Photoshop\n"
-        "• Illustrator\n"
-        "• Canva\n"
-        "• Midjourney AI"
+        "🌈 Урок 2\n\n"
+        "Работа с цветом:\n\n"
+        "• Цветовые схемы\n"
+        "• Контраст\n"
+        "• Психология цвета\n\n"
+        "Практика:\n"
+        "Собери палитру для проекта."
+    )
+
+
+@router.message(F.text == "Урок 3 — Портфолио")
+async def lesson_three(message: Message):
+    await message.answer(
+        "🖼 Урок 3\n\n"
+        "Создание портфолио:\n\n"
+        "• Кейсы\n"
+        "• Описание работы\n"
+        "• Презентация результата\n\n"
+        "Цель: сделать первый продающий кейс."
+    )
+
+
+def design_lessons_keyboard():
+    from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+
+    return ReplyKeyboardMarkup(
+        keyboard=[
+            [
+                KeyboardButton(text="Урок 1 — Композиция")
+            ],
+            [
+                KeyboardButton(text="Урок 2 — Цвет")
+            ],
+            [
+                KeyboardButton(text="Урок 3 — Портфолио")
+            ],
+            [
+                KeyboardButton(text="🎨 Дизайн")
+            ]
+        ],
+        resize_keyboard=True
     )
