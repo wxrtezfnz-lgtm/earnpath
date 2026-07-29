@@ -20,46 +20,30 @@ async def complete_lesson_progress(
 
     user.progress += 10
 
-
-    # каждые 100 очков новый уровень
     user.level = (
         user.progress // 100
     ) + 1
 
 
     await session.commit()
-
     await session.refresh(user)
 
 
     return user
 
-async def add_progress(
+
+
+# совместимость со старыми handlers
+async def complete_lesson(
     session: AsyncSession,
     telegram_id: int,
-    amount: int = 10
+    username: str | None = None,
+    first_name: str | None = None
 ):
 
-    user = await get_user(
+    return await complete_lesson_progress(
         session=session,
-        telegram_id=telegram_id
+        telegram_id=telegram_id,
+        username=username,
+        first_name=first_name
     )
-
-
-    if not user:
-        return None
-
-
-    user.progress += amount
-
-    user.level = (
-        user.progress // 100
-    ) + 1
-
-
-    await session.commit()
-
-    await session.refresh(user)
-
-
-    return user
