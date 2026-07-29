@@ -2,11 +2,22 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 
-from app.config import BOT_TOKEN
+from app.config import settings
+
+
+# handlers
+from app.handlers import (
+    start,
+    menu,
+    profile,
+    earnings,
+    academy,
+    premium,
+)
 
 
 bot = Bot(
-    token=BOT_TOKEN,
+    token=settings.BOT_TOKEN,
     default=DefaultBotProperties(
         parse_mode=ParseMode.HTML
     )
@@ -16,6 +27,16 @@ bot = Bot(
 dp = Dispatcher()
 
 
-from app.handlers.start import router
+# ==========================
+# Регистрация обработчиков
+# ==========================
 
-dp.include_router(router)
+dp.include_router(start.router)
+dp.include_router(menu.router)
+dp.include_router(profile.router)
+dp.include_router(earnings.router)
+dp.include_router(academy.router)
+dp.include_router(premium.router)
+
+
+print("✅ Все handlers подключены")

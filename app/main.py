@@ -7,7 +7,6 @@ from app.config import settings
 
 
 async def main():
-
     logger.info("🚀 ProfitOS запускается...")
     logger.info(f"Environment: {settings.ENVIRONMENT}")
 
@@ -23,15 +22,12 @@ async def main():
 
         await dp.start_polling(
             bot,
-            allowed_updates=[
-                "message",
-                "callback_query"
-            ]
+            allowed_updates=dp.resolve_used_update_types()
         )
 
     except Exception as e:
         logger.exception(
-            f"❌ Ошибка запуска: {e}"
+            f"❌ Ошибка запуска бота: {e}"
         )
 
     finally:

@@ -7,13 +7,7 @@ router = Router()
 
 
 @router.message(Command("start"))
-async def start_handler(
-    message: Message
-):
-
-    print(
-        f"START FROM {message.from_user.id}"
-    )
+async def start_handler(message: Message):
 
     await message.answer(
         """
@@ -26,28 +20,4 @@ async def start_handler(
 /start — запуск
 /help — помощь
         """
-    )
-
-
-@router.message(Command("help"))
-async def help_handler(
-    message: Message
-):
-
-    await message.answer(
-        "ℹ️ Помощь EarnPath"
-    )
-
-
-@router.message()
-async def echo_handler(
-    message: Message
-):
-
-    print(
-        f"MSG: {message.text}"
-    )
-
-    await message.answer(
-        f"✅ Получил: {message.text}"
     )
