@@ -6,21 +6,28 @@ def design_lessons_keyboard():
     return ReplyKeyboardMarkup(
         keyboard=[
             [
-                KeyboardButton(text="🎨 Урок 1")
+                KeyboardButton(
+                    text="🎨 Урок 1"
+                )
             ],
             [
-                KeyboardButton(text="🎨 Урок 2")
+                KeyboardButton(
+                    text="🎨 Урок 2"
+                )
             ],
             [
-                KeyboardButton(text="🎨 Урок 3")
+                KeyboardButton(
+                    text="🎨 Урок 3"
+                )
             ],
             [
-                KeyboardButton(text="⬅️ Назад")
-            ],
+                KeyboardButton(
+                    text="⬅️ Назад"
+                )
+            ]
         ],
         resize_keyboard=True
     )
-
 
 
 def finish_lesson_keyboard():
@@ -36,7 +43,7 @@ def finish_lesson_keyboard():
                 KeyboardButton(
                     text="⬅️ Назад"
                 )
-            ],
+            ]
         ],
         resize_keyboard=True
     )
