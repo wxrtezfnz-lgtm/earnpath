@@ -52,5 +52,5 @@ async def business(message: Message):
 async def investments(message: Message):
     await message.answer(
         "📈 Инвестиции\n\n"
-        "Обучающие материалы скоро будут доступны."
+        "Материалы скоро будут доступны 🚀"
     )
