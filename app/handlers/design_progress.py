@@ -5,7 +5,20 @@ from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
 router = Router()
 
 
-def after_lesson_keyboard():
+def lesson_complete_keyboard():
+    return ReplyKeyboardMarkup(
+        keyboard=[
+            [
+                KeyboardButton(
+                    text="✅ Завершить урок"
+                )
+            ]
+        ],
+        resize_keyboard=True
+    )
+
+
+def next_lesson_keyboard():
     return ReplyKeyboardMarkup(
         keyboard=[
             [
@@ -31,7 +44,7 @@ async def complete_lesson(message: Message):
         "Ты получил +10 XP.\n\n"
         "Следующий шаг:\n"
         "🌈 Урок 2 — Работа с цветом",
-        reply_markup=after_lesson_keyboard()
+        reply_markup=next_lesson_keyboard()
     )
 
 
@@ -47,4 +60,5 @@ async def next_lesson(message: Message):
         "• Психология цвета\n\n"
         "📝 Практика:\n"
         "Создай 3 цветовые схемы для бренда.",
+        reply_markup=lesson_complete_keyboard()
     )
