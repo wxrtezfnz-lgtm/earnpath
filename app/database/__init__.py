@@ -2,7 +2,6 @@ from app.database.engine import engine
 from app.database.models import Base
 
 
-
 async def init_db():
 
     async with engine.begin() as conn:
