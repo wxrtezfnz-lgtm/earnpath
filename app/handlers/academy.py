@@ -1,42 +1,18 @@
-from aiogram import Router
-from aiogram.types import CallbackQuery
+from aiogram import Router, F
+from aiogram.types import Message
 
-from app.keyboards.academy import academy_menu
+from app.keyboards.design import design_keyboard
 
 
 router = Router()
 
 
-@router.callback_query(
-    lambda callback: callback.data == "academy"
-)
-async def academy_handler(
-    callback: CallbackQuery
-):
-    """
-    Главное меню Академии
-    """
 
-    await callback.message.edit_text(
-        """
-📚 <b>Академия ProfitOS</b>
+@router.message(F.text == "🎨 Дизайн")
+async def design(message: Message):
 
-Система обучения для роста дохода.
-
-Выбери направление:
-
-🎯 Старт с нуля
-🤖 AI навыки
-💼 Бизнес
-💻 Профессии будущего
-
-Каждый курс содержит:
-✅ уроки
-✅ задания
-✅ прогресс
-✅ практику
-        """,
-        reply_markup=academy_menu()
+    await message.answer(
+        "🎨 Дизайн\n\n"
+        "Выбери урок:",
+        reply_markup=design_keyboard()
     )
-
-    await callback.answer()

@@ -1,4 +1,7 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import (
+    ReplyKeyboardMarkup,
+    KeyboardButton
+)
 
 
 def main_keyboard():
@@ -6,12 +9,19 @@ def main_keyboard():
     return ReplyKeyboardMarkup(
         keyboard=[
             [
-                KeyboardButton(text="💰 Заработок"),
-                KeyboardButton(text="🎓 Академия")
+                KeyboardButton(
+                    text="💰 Заработок"
+                )
             ],
             [
-                KeyboardButton(text="👤 Профиль"),
-                KeyboardButton(text="⭐ Premium")
+                KeyboardButton(
+                    text="🎓 Академия"
+                )
+            ],
+            [
+                KeyboardButton(
+                    text="👤 Профиль"
+                )
             ]
         ],
         resize_keyboard=True

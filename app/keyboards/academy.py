@@ -1,44 +1,27 @@
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import (
+    ReplyKeyboardMarkup,
+    KeyboardButton
+)
 
 
-def academy_menu() -> InlineKeyboardMarkup:
-    """
-    Меню Академии ProfitOS
-    """
 
-    keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[
+def academy_keyboard():
+
+    return ReplyKeyboardMarkup(
+        keyboard=[
+
             [
-                InlineKeyboardButton(
-                    text="🎯 Старт с нуля",
-                    callback_data="academy_start"
+                KeyboardButton(
+                    text="🎨 Дизайн"
                 )
             ],
+
             [
-                InlineKeyboardButton(
-                    text="🤖 AI Навыки",
-                    callback_data="academy_ai"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    text="💼 Бизнес",
-                    callback_data="academy_business"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    text="💻 Профессии будущего",
-                    callback_data="academy_future"
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    text="⬅ Назад",
-                    callback_data="back_main"
+                KeyboardButton(
+                    text="⬅️ Назад"
                 )
             ]
-        ]
-    )
 
-    return keyboard
+        ],
+        resize_keyboard=True
+    )
