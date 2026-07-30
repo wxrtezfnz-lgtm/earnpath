@@ -1,12 +1,13 @@
 from pydantic_settings import BaseSettings
 
 
-
 class Settings(BaseSettings):
 
     BOT_TOKEN: str
 
-    DATABASE_URL: str = "sqlite+aiosqlite:///profitos.db"
+    database_url: str = (
+        "sqlite+aiosqlite:///profitos.db"
+    )
 
     ENVIRONMENT: str = "production"
 
@@ -14,7 +15,6 @@ class Settings(BaseSettings):
 
 
     class Config:
-
         env_file = ".env"
 
 
